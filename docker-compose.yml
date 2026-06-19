@@ -1,0 +1,38 @@
+services:
+  css:
+    image: cgr.dev/chainguard-private/node:22-dev@sha256:1d9c35f11ed2d95b2c1e99bb40e034b488b4e7b78ed203577f9c0d1c95a7b929
+    container_name: sbomviz-css
+    user: "${DOCKER_UID:-1000}:${DOCKER_GID:-1000}"
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - CHAINGUARD_JAVASCRIPT_IDENTITY_ID=${CHAINGUARD_JAVASCRIPT_IDENTITY_ID-}
+      - CHAINGUARD_JAVASCRIPT_TOKEN=${CHAINGUARD_JAVASCRIPT_TOKEN-}
+      - HOME=/app/.home
+      - NPM_CONFIG_CACHE=/app/.npm-cache
+    entrypoint: ["/bin/sh", "-c"]
+    command: "./scripts/configure-npm-libraries.sh && npm ci && npm run watch:css"
+    restart: unless-stopped
+
+  sbomviz:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CHAINGUARD_PYTHON_IDENTITY_ID: ${CHAINGUARD_PYTHON_IDENTITY_ID-}
+        CHAINGUARD_PYTHON_TOKEN: ${CHAINGUARD_PYTHON_TOKEN-}
+        CHAINGUARD_JAVASCRIPT_IDENTITY_ID: ${CHAINGUARD_JAVASCRIPT_IDENTITY_ID-}
+        CHAINGUARD_JAVASCRIPT_TOKEN: ${CHAINGUARD_JAVASCRIPT_TOKEN-}
+    image: sbomviz-dev:local
+    container_name: sbomviz-dev
+    user: "${DOCKER_UID:-1000}:${DOCKER_GID:-1000}"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - css

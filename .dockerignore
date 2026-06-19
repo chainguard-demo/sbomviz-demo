@@ -1,0 +1,11 @@
+.git
+node_modules
+.npm-cache
+.home
+.npmrc
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+agent-transcripts
