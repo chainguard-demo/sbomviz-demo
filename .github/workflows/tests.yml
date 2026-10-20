@@ -9,6 +9,9 @@ on:
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     strategy:
       fail-fast: false
       matrix:
@@ -16,7 +19,7 @@ jobs:
 
     steps:
 
-      - uses: chainguard-dev/setup-chainctl@main
+      - uses: chainguard-dev/setup-chainctl@9014a6ef4f9783eef6414ed71e92fcecf152dfe7 # main
         with:
           identity: 45a0c61ea6fd977f050c5fb9ac06a69eed764595/10f82a4f744469b7
 
