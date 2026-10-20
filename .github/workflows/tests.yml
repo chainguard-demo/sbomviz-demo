@@ -15,6 +15,11 @@ jobs:
         python-version: ["3.12", "3.13"]
 
     steps:
+
+      - uses: chainguard-dev/setup-chainctl@main
+        with:
+          identity: 45a0c61ea6fd977f050c5fb9ac06a69eed764595/10f82a4f744469b7
+
       - name: Check out repository
         uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
 
