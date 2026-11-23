@@ -21,7 +21,7 @@ jobs:
 
       - uses: chainguard-dev/setup-chainctl@bfe7503a12660737d9d66d02d2610a399d804316 # v0.6.0
         with:
-          identity: 45a0c61ea6fd977f050c5fb9ac06a69eed764595/10f82a4f744469b7
+          identity: 45a0c61ea6fd977f050c5fb9ac06a69eed764595/04ea265f37c12a4a
 
       - name: Check out repository
         uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
