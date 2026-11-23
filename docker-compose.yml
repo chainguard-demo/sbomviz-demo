@@ -12,7 +12,7 @@ services:
       - HOME=/app/.home
       - NPM_CONFIG_CACHE=/app/.npm-cache
     entrypoint: ["/bin/sh", "-c"]
-    command: "./scripts/configure-npm-libraries.sh && npm ci && npm run watch:css"
+    command: ["./scripts/configure-npm-libraries.sh && npm ci && npm run watch:css"]
     restart: unless-stopped
 
   sbomviz:
